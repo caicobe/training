@@ -26,19 +26,67 @@ type Recipe {
   fats: Float 
 }
 
+input CreateRecipeInput {
+  name: String!
+  ingredients: [Food]
+  kcal: Float
+  proteins: Float
+  carbohydrates: Float
+  fats: Float
+} 
+
+input UpdateRecipeInput {
+  name: String
+  ingredients: [Food]
+  kcal: Float
+  proteins: Float
+  carbohydrates: Float
+  fats: Float
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  passwordConfirmation: String!
+  age: Int
+  height: Float
+  weight: Float
+} 
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+  passwordConfirmation: String
+  age: Int
+  height: Float
+  weight: Float
+}
+
+input RecipeFilterInput {
+  name: String
+}
+
 type Query {
-  users: [User]
+  users: [User!]!
+  recipes(filters: RecipeFilterInput): [Recipe!]!
 }
 
 type Mutation {
-  createUser(name: String!, email: String!, password: String!, passwordConfirmation: String!, age: Int, height: Float, weight: Float): User
+  createUser(input: CreateUserInput!): User
   login(email: String!, password: String!): String
   deleteUser(id: ID!): Boolean
-  updateUser(id: ID!, name: String, email: String, password: String, passwordConfirmation: String, age: Int, height: Float, weight: Float): User
+  updateUser(id: ID!, input: UpdateUserInput): User
+  createRecipe(input: CreateRecipeInput!): Recipe
+  deleteRecipe(id:ID!): Boolean
+  updateRecipe(input: UpdateRecipeInput): Recipe
 }
 
 schema {
   query: Query
   mutation: Mutation
 }
+
+
 
