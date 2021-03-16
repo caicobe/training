@@ -1,0 +1,44 @@
+type User {
+  id: ID!
+  name: String!
+  email: String
+  age: Int
+  height: Float
+  weight: Float 
+}
+
+type Food {
+  id: ID!
+  name: String!
+  kcal: Float
+  proteins: Float
+  carbohydrates: Float
+  fats: Float 
+}
+
+type Recipe {
+  id: ID!
+  name: String!
+  ingredients: [Food]
+  kcal: Float
+  proteins: Float
+  carbohydrates: Float
+  fats: Float 
+}
+
+type Query {
+  users: [User]
+}
+
+type Mutation {
+  createUser(name: String!, email: String!, password: String!, passwordConfirmation: String!, age: Int, height: Float, weight: Float): User
+  login(email: String!, password: String!): String
+  deleteUser(id: ID!): Boolean
+  updateUser(id: ID!, name: String, email: String, password: String, passwordConfirmation: String, age: Int, height: Float, weight: Float): User
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
